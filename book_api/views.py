@@ -29,3 +29,13 @@ def book(request, id):
         return Response(serializer.data)
     except:
         return Response({"error":"Eşleşen bir kayıt bulunamadı."}, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(["PUT"])
+def book_update(request, id):
+    book = Book.objects.get(pk=id)
+    seralizer = BookSerializer(book,data = request.data)
+    if seralizer.is_valid():
+        seralizer.save()
+        return Response(seralizer.data)
+    else:
+        return Response(seralizer.errors)
