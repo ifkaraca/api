@@ -39,3 +39,9 @@ def book_update(request, id):
         return Response(seralizer.data)
     else:
         return Response(seralizer.errors)
+    
+@api_view(["DELETE"])
+def book_delete(request, id):
+    book = Book.objects.get(pk=id)
+    book.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
